@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 
-const sequelize = new Sequelize('REsumeapp', 'postgres', 'Mypsswd1!', {
+const sequelize = new Sequelize('resumeApp', 'postgres', 'Mypsswd1!', {
   host: "localhost",
   Port: "5432",
   dialect: "postgres",

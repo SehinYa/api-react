@@ -6,6 +6,4 @@ exports.createApplication = function(first_name, last_name, email, position) {
         email,
         position
     });
-    }
-
-;
+    };

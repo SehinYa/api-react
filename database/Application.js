@@ -11,7 +11,7 @@ class Application extends Model {}
 Application.init(
   {
   first_name: {
-    type:DataTypes .STRING,
+    type: DataTypes.STRING,
   },
   last_name: {
     type: DataTypes.STRING,
@@ -23,17 +23,21 @@ Application.init(
     type: DataTypes.STRING,
   }, 
 },
-
   {
     sequelize,
-    modelName: "Application",
+    modelName: "applications",
     tableName: 'applications',
     timestamps: false
   }
-  ),
+  );
 
-  Application.sync().then(() => {
-    console.log("table created")
-  })
+  /*Application.create({
+    first_name: 'sarah',
+    last_name: 'dave',
+    email: 'nate@yahoo.com',
+    position: 'tester'
+  });*/
+
+
 
 module.exports = Application;

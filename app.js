@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const morgan = require('morgan');
 const logger = require('morgan');
-const manager = require('../api/database/managers');
+const manager = require('../api/database/Manager');
 const request = require("request");
 const fileUpload = require('express-fileUpload');
 const indexRouter = require('./routes/index');
@@ -46,12 +46,13 @@ app.post('/upload', (req, res) => {
   }
   const file = req.files.file;
 
-  frameElement.remove('${__dirname}/client/public/uploads/${file.name}', err => {
-    if(err) {
-    console.error(err);
-    return res.status(500).send(err);
+  file.mv(`${__dirname}/client/public/uploads/${file.name}`, err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
     }
-    res.jason({ fileName: file.name, filePath: '/uploads/${filename}' });
+
+    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
   });
 });
 
@@ -84,6 +85,30 @@ sessionChecker = (req, res, next) => {
     next();
   }
 }
+
+app.use((req, res, next) => {
+ 
+  res.setHeader("Access-Control-Allow-Origin", "*");
+ 
+  res.setHeader(
+ 
+    "Access-Control-Allow-Headers",
+ 
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+ 
+  );
+ 
+  res.setHeader(
+ 
+    "Access-Control-Allow-Methods",
+ 
+    "GET, POST, PATCH, DELETE, OPTIONS, PUT"
+ 
+  );
+ 
+  next();
+ 
+ });
 
 app.get('/api', sessionChecker, (req, res) => {
   res.status(200).send({ inSession: false });
